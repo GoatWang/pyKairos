@@ -1,3 +1,9 @@
+# Introduction
+This is a KairosDB python client. Without comprehensive fintionality, this tool just provide basic read and write API.  
+
+# Example
+
+```
 import os
 import pyKairos as pk
 host = 'localhost'
@@ -28,9 +34,13 @@ print(res)
 print("-------------------------")
 
 # query
+# build aggregator
 aggregator = pk.build_query_metric_aggregator('avg', 2, 'days')
+# use aggragator to build metric
 metric = pk.build_query_metric('temperature', [aggregator], {"region":'london'}, limit=5)
+# use metric to build query
 query = pk.build_query([metric], datetime(2015, 1, 1), datetime(2015, 1, 9))
+# query_datapoints
 res = client.query_datapoints(query)
 print("query data")
 print(res)
@@ -44,4 +54,19 @@ res = client.delete_datapoints(query)
 print("delete data")
 print(res)
 print("-------------------------")
+```
+3. query data:
+```
+# build aggregator
+aggregator = pk.build_query_metric_aggregator('avg', 2, 'days')
 
+# use aggragator to build metric
+metric = pk.build_query_metric('temperature_london', [aggregator], {"region":'london'}, limit=100)
+
+# use metric to build query
+query = pk.build_query([metric], datetime(2005, 1, 1), datetime(2005, 1, 29))
+
+# query_datapoints
+res = client.query_datapoints(query)
+print(res['queries'][0])
+```

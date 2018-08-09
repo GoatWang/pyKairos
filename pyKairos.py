@@ -61,12 +61,12 @@ def build_query_metric_aggregator(name, num, unit, align="none"):
         if align == 'end': aggregator['align_end_time']=True
     return aggregator
             
-def build_query_metric(name, aggragators, tags={}, limit=None):
+def build_query_metric(name, aggragators=[], tags={}, limit=-1):
     '''
     name: str type, metric name
     tags: dict type, {tag_key1:tag_value1, tag_key2:tag_value2, ....}
     aggregators: list type [aggregator1, aggregator2, ...], it's recommended to generate aggragator by pyKairos.build_query_metric_aggregator. If number of input aggregatprs are more than one, it's hierachical concept for aggregating. 
-    limit: int type, limitation on return rows.
+    limit: int type, limitation on return rows. if limit == -1, then return all.
     '''
     assert type(limit) == int,  "limit should be int type " 
 
@@ -74,8 +74,7 @@ def build_query_metric(name, aggragators, tags={}, limit=None):
     metric['name'] = name
     metric['tags'] = tags
     metric['aggragators'] = aggragators
-    if limit != None:
-        metric['limit'] = limit
+    if limit != -1: metric['limit'] = limit
     return metric
 
 def build_query(metrics, starttime, endtime=None, cache_time=0):
@@ -149,4 +148,16 @@ class KairosClient():
         else:
             res = requests.post(path, data=json.dumps(query), auth=HTTPBasicAuth(self.username, self.password))
         return json.loads(res.text)
+
+    def delete_datapoints(self, query):
+        path = self.url + "api/v1/datapoints/delete"
+        if self.username == None or self.password == None:
+            res = requests.post(path, data=json.dumps(query))
+        else:
+            res = requests.post(path, data=json.dumps(query), auth=HTTPBasicAuth(self.username, self.password))
+        if res.status_code == 204:
+            return 'success'
+        else:
+            return 'fail, status code: ' + str(res.status_code)
+    
         
