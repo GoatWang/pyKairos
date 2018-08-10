@@ -1,0 +1,18 @@
+Metadata-Version: 2.1
+Name: pyKairos
+Version: 0.0.1
+Summary: KairosDB python client
+Home-page: https://github.com/GoatWang/pyKairos
+Author: GoatWang
+Author-email: jeremywang@thinktronltd.com
+License: UNKNOWN
+Description: # Introduction
+        This is a KairosDB python client. Without comprehensive fintionality, this tool just provide basic read and write API.  
+        
+        # Example
+        Please see example.py
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
