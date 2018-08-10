@@ -37,12 +37,16 @@ def build_postdata(metric, tags, datapoints):
     }
     return postdata
 
-def build_query_metric_aggregator(name, num, unit, align="none"):
+def build_query_metric_aggregator(name, num=None, unit=None, align="none"):
     '''
-    name: str type, "avg", "count", "dev", "diff", "div", "filter", "first", "gaps", "last", "least_squares", "max", "min", "percentile", "rate", "sampler", "save_as", "scale", "sum", "trim"
+    this is a simple function for simple aggregation functions including: "avg", "count", "first", "last", "least_squares", "max", "min", "sum"
+    
+    params: 
+    name: str type, "avg", "count", "first", "last", "least_squares", "max", "min", "sum"
     num: int type, number of unit
     unit: str type, "years", "months", "weeks", "days", "hours", "minutes", "seconds", "milliseconds"
     align: str type, "none", "sample", "start", "end"
+    div: name, divisor(>1)
     '''
     name_candidate = ["avg", "count", "dev", "diff", "div", "filter", "first", "gaps", "last", "least_squares", "max", "min", "percentile", "rate", "sampler", "save_as", "scale", "sum", "trim"]
     assert name in name_candidate, "name should be in " + str(name_candidate) 
@@ -50,8 +54,8 @@ def build_query_metric_aggregator(name, num, unit, align="none"):
     unit_candidate = ["years", "months", "weeks", "days", "hours", "minutes", "seconds", "milliseconds"]
     assert unit in unit_candidate, "name should be in " + str(unit_candidate) 
     align_candidate = ["none", "sample", "start", "end"]
-    assert align in align_candidate, "name should be in " + str(align_candidate) 
-
+    assert align in align_candidate, "align should be in " + str(align_candidate) 
+    
     aggregator = {}
     aggregator['name'] = name
     aggregator['sampling'] = {"value":str(num), "unit":unit}

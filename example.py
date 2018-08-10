@@ -6,7 +6,6 @@ kairos_username = os.environ['KAIROS_USERNAME']
 kairos_password = os.environ['KAIROS_PASSWORD']
 client = pk.KairosClient(host=host, port=port, username=kairos_username, password=kairos_password)
 
-
 # add
 from datetime import datetime
 datapoints = [[datetime(2015, 1, 1, 0, 0), 20.7],
@@ -35,7 +34,6 @@ res = client.query_datapoints(query)
 print("query data")
 print(res)
 print("-------------------------")
-
 
 # delete
 metric = pk.build_query_metric('temperature', tags={"region":'london'})
