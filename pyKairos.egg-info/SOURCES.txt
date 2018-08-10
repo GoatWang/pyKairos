@@ -1,6 +1,5 @@
 README.md
 setup.py
-pyKairos/__init__.py
 pyKairos.egg-info/PKG-INFO
 pyKairos.egg-info/SOURCES.txt
 pyKairos.egg-info/dependency_links.txt

@@ -1,1 +1,2 @@
-name = "pyKairos"
+name = 'pyKairos'
+__all__ = ['pyKairos']
